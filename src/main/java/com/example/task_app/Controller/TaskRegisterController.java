@@ -7,9 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/task")
 public class TaskRegisterController {
-  @RequestMapping(value = "/input")
-  public ModelAndView taskRegister(ModelAndView mav){
-    mav.setViewName("/taskinput");
+  @RequestMapping(value = "/form")
+  public ModelAndView taskInput(ModelAndView mav){
+    mav.setViewName("/taskform");
     return mav;
   }  
 }
