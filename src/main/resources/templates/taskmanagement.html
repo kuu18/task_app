@@ -37,10 +37,15 @@
             <div class="row row-cols-md-3 g-3">
               <div class="col-sm-6" th:each="task : ${latestTaskList}" th:object="${task}">
                 <div class="card text-white bg-success mb-3">
-                  <div class="card-header" th:text="*{deadLine}">Header</div>
+                  <div class="card-header">
+                    <span class="h5" th:text="*{name}"></span>
+                  </div>
                   <div class="card-body">
-                    <h5 class="card-title" th:text="*{name}" >Success card title</h5>
-                    <p class="card-text" th:text="*{content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text" th:text="*{content}"></p>
+                  </div>
+                  <div class="card-footer">
+                    <small th:text="'期限：' + *{deadLine}"></small>
+                    <button type="submit" class="btn btn-outline-light btn-sm" th:text="*{status} ? '完了' : '未完了'">Secondary</button>
                   </div>
                 </div>
               </div>
