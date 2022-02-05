@@ -7,8 +7,9 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class TaskForm {
+  @NotNull(groups = UpdateDeleteGroup.class)
   private Integer taskId;
-  @NotNull
+  @NotNull(groups = CreateGroup.class)
   private String name;
   private String content;
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) 
@@ -54,5 +55,10 @@ public class TaskForm {
   public void setStatus(Boolean status) {
     this.status = status;
   }
+
+  public interface UpdateDeleteGroup {
+	}
+	public interface CreateGroup {
+	}
 
 }
