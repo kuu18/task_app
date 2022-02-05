@@ -42,4 +42,8 @@ public class TaskService {
     taskRepository.updateStatus(taskId);
   }
 
+  @Transactional
+	public void delete(int taskId) {
+		taskRepository.deleteById(taskId);
+	}
 }
