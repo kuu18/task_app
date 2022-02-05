@@ -45,7 +45,9 @@
                   </div>
                   <div class="card-footer">
                     <small th:text="'期限：' + *{deadLine}"></small>
-                    <button type="submit" class="btn btn-outline-light btn-sm" th:text="*{status} ? '完了' : '未完了'">Secondary</button>
+                    <form th:action="@{'/task/statusupdate/' + *{taskId}}" method="post">
+                      <button type="submit" class="btn btn-outline-light btn-sm" th:text="*{status} ? '完了' : '未完了'"></button>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -70,7 +72,9 @@
                 <td th:text="*{name}">トイレ掃除</td>
                 <td th:text="*{content}">トイレを掃除する</td>
                 <td th:text="*{deadLine}">2022-02-01-19:00</td>
-                <td th:text="*{status} ? '完了' : '未完了'">未完了</td>
+                <form th:action="@{'/task/statusupdate/' + *{taskId}}" method="post">
+                  <td><button type="submit" class="btn-sm btn-outline-primary" th:text="*{status} ? '完了' : '未完了'"></button></td>
+                </form>
                 <form th:action="@{'/task/form/' + *{taskId}}" method="post">
                   <td><button type="submit" class="btn-sm btn-outline-primary">編集</button></td>
                 </form>
