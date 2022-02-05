@@ -37,4 +37,9 @@ public class TaskService {
 		return taskRepository.save(task);
 	}
 
+  @Transactional
+  public void updateStatus(Integer taskId) {
+    taskRepository.updateStatus(taskId);
+  }
+
 }

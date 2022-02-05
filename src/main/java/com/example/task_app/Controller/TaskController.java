@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -108,6 +109,32 @@ public class TaskController {
       mav.addObject("latestTaskList", taskService.findLatestTask());
 			// ビュー名の設定
 			mav.setViewName("taskmanagement");
+		}
+		return mav;
+	}
+
+  /**
+	 * ステータスの更新
+	 *
+	 * @param 
+	 * @return mav
+	 */
+
+  @RequestMapping(value = "/statusupdate/{taskId}", method = RequestMethod.POST)
+	public ModelAndView updateStatus(ModelAndView mav,
+			@PathVariable("taskId") Integer taskId,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			// ビュー名の設定
+			mav.setViewName("taskmanagement");
+		} else {
+			// update
+			taskService.updateStatus(taskId);
+			// セッション情報への登録
+			mav.addObject("list", taskService.findAll());
+      mav.addObject("latestTaskList", taskService.findLatestTask());
+			// ビュー名の設定
+			mav.setViewName("redirect:/task/management");
 		}
 		return mav;
 	}
