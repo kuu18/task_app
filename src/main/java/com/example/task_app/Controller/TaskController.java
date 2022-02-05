@@ -134,9 +134,29 @@ public class TaskController {
 			mav.addObject("list", taskService.findAll());
       mav.addObject("latestTaskList", taskService.findLatestTask());
 			// ビュー名の設定
-			mav.setViewName("redirect:/task/management");
+			mav.setViewName("taskmanagement");
 		}
 		return mav;
 	}
 
+  /**
+	 * タスクの削除
+	 *
+	 * @param 
+	 * @return mav
+	 */
+  @RequestMapping(value = "/delete/{taskId}", method = RequestMethod.POST)
+	public ModelAndView delete(ModelAndView mav,
+			@ModelAttribute("form") @Validated(TaskForm.UpdateDeleteGroup.class) TaskForm form,
+			BindingResult bindingResult) {
+		if (!bindingResult.hasErrors()) {
+			taskService.delete(form.getTaskId());
+		}
+		// セッション情報への登録
+		mav.addObject("list", taskService.findAll());
+    mav.addObject("latestTaskList", taskService.findLatestTask());
+		// ビュー名の設定
+		mav.setViewName("taskmanagement");
+		return mav;
+	}
 }

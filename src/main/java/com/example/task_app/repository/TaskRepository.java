@@ -25,5 +25,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
   @Modifying
   @Query(value = "update task t set t.status = if(t.status=1,0,1) where t.taskid = :taskId", nativeQuery = true)
   public void updateStatus(@Param("taskId") Integer taskId);
+
 }
 
