@@ -71,6 +71,9 @@
                 <td th:text="*{content}">トイレを掃除する</td>
                 <td th:text="*{deadLine}">2022-02-01-19:00</td>
                 <td th:text="*{status} ? '完了' : '未完了'">未完了</td>
+                <form th:action="@{'/task/form/' + *{taskId}}" method="post">
+                  <td><button type="submit" class="btn-sm btn-outline-primary">編集</button></td>
+                </form>
               </tr>
             </tbody>
           </table>

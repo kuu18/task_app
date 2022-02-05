@@ -23,8 +23,18 @@ public class TaskService {
     return taskRepository.findAll();
   }
 
+  public Task findOne(Integer taskId) {
+    return taskRepository.findById(taskId).get();
+  }
+
   @Transactional
   public Task save(Task task) {
     return taskRepository.save(task);
   }
+
+  @Transactional
+	public Task update(Task task) {
+		return taskRepository.save(task);
+	}
+
 }

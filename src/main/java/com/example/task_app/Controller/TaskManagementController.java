@@ -15,6 +15,13 @@ import java.util.List;
 public class TaskManagementController {
   @Autowired
   private TaskService service;
+
+  /**
+	 * タスク管理画面への遷移アクション
+	 *
+	 * @param 
+	 * @return mav
+	 */
   
   @RequestMapping(value = "/management")
   public ModelAndView output(ModelAndView mav) {
