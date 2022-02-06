@@ -18,6 +18,15 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
   public List<Task> findAllByOrderByDeadLine();
 
   /**
+	 * タスク名で検索 (曖昧検索)
+	 *
+	 * @param name
+	 *            
+	 * @return 検索結果
+	 */
+	public List<Task> findByNameContaining(String name);
+
+  /**
    * ステータスの更新
    * 
    * @return 
