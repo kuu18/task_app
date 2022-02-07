@@ -2,6 +2,7 @@ package com.example.task_app.form;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +11,7 @@ public class TaskForm {
   @NotNull(groups = UpdateDeleteGroup.class)
   private Integer taskId;
   @NotNull(groups = CreateGroup.class)
+  @Max(value = 50, groups = {CreateGroup.class, UpdateDeleteGroup.class})
   private String name;
   private String content;
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) 
