@@ -18,6 +18,7 @@ public class TaskForm {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) 
   private LocalDateTime deadLine;
   private Boolean status = false;
+  private Integer userid;
 
   public Integer getTaskId() {
     return this.taskId;
@@ -58,6 +59,14 @@ public class TaskForm {
   public void setStatus(Boolean status) {
     this.status = status;
   }
+
+  public Integer getUserid() {
+		return this.userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
   public interface UpdateDeleteGroup {
 	}

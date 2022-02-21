@@ -8,14 +8,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <th:block th:replace="${links} ?: _" />
 <th:block th:replace="${scripts} ?: _" />
+<style>
+  .errormessage {
+    color: red;
+  }
+</style>
 </head>
 <body>
-  <header th:fragment="header(searchFlag)" class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-1 me-0 px-3" th:href="@{/task/management}">TaskApp</a>
+  <header th:fragment="header(searchFlag, loginFlag)" class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-1 me-0 px-3" th:href="@{/home}">TaskApp</a>
     <p th:text="${title}"></p>
-    <form class="col-md-3 d-flex justify-content-end" th:action="@{/task/management}" method="post" th:if="${searchFlag}">
+    <form class="col-md-3 d-flex justify-content-md-center" th:action="@{/task/management}" method="post" th:if="${searchFlag}">
       <input class="form-group me-3 flex-grow-1" type="text" placeholder="タスク名検索" name="nameKey">
       <button class="btn btn-link me-3" type="submit"><i class="bi bi-search text-white"></i></button>
+    </form>
+    <form class="col-md-3 d-flex justify-content-end" th:action="@{/logout}" method="post" th:if="${loginFlag}">
+      <button type="submit" class="btn btn-sm btn-success">ログアウト</button>
     </form>
   </header>
 </body>
