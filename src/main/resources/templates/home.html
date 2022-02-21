@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: meta_header('ホーム',~{::link},~{::script})">
+</head>
+<body>
+  <div th:replace="common :: header(false,false)"></div>
+<div class="px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold">TaskApp</h1>
+  <div class="col-lg-6 mx-auto">
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <form th:action="@{/signupform}" method="get">
+        <button type="submit" class="btn btn-primary btn-lg px-4 me-sm-3">新規登録</button>
+      </form>
+      <form th:action="@{/loginform}" method="get">
+        <button type="submit" class="btn btn-outline-secondary btn-lg px-4">ログイン</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

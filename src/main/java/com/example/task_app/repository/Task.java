@@ -7,15 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "task")
 public class Task {
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "taskid")
-  private Integer taskId;
+  private Integer taskid;
   @Column(name = "name")
   private String name;
   @Column(name = "content")
@@ -24,13 +26,18 @@ public class Task {
   private LocalDateTime deadLine;
   @Column(name = "status")
   private Boolean status;
+  @Column(name = "userid")
+  private Integer userid;
+  @ManyToOne(targetEntity = User.class)
+	@JoinColumn(name = "userid", insertable = false, updatable = false)
+	private User user;
 
   public Integer getTaskId() {
-    return this.taskId;
+    return this.taskid;
   }
 
   public void setTaskId(Integer taskId) {
-    this.taskId = taskId;
+    this.taskid = taskId;
   }
 
   public String getName() {
@@ -63,5 +70,21 @@ public class Task {
 
   public void setStatus(Boolean status) {
     this.status = status;
+  }
+
+  public Integer getUserid() {
+    return this.userid;
+  }
+
+  public void setUserid(Integer userId) {
+    this.userid = userId;
+  }
+
+  public User getUser() {
+    return this.user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }

@@ -15,7 +15,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
    * 
    * @return 期限でソートされた結果
    */
-  public List<Task> findAllByOrderByDeadLine();
+  public List<Task> findByUseridOrderByDeadLine(Integer userid);
 
   /**
 	 * タスク名で検索 (曖昧検索)
@@ -24,7 +24,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
 	 *            
 	 * @return 検索結果
 	 */
-	public List<Task> findByNameContaining(String name);
+	public List<Task> findByNameContainingAndUserid(String name, Integer userid);
 
   /**
    * ステータスの更新

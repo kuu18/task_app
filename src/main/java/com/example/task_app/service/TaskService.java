@@ -16,27 +16,27 @@ public class TaskService {
   @Autowired
   private TaskRepository taskRepository;
 
-  public List<Task> findByNameLike(Optional<String> namekey){
+  public List<Task> findByNameLike(Optional<String> namekey, Integer userid){
 		List<Task> list;
 		// 検索キーワードによる条件分岐
 		if (namekey.isPresent() && !namekey.get().equals("")) {
-			list = findByName(namekey.get());
+			list = findByName(namekey.get(), userid);
 		} else {
-			list = findAll();
+			list = findAll(userid);
 		}
 		return list;
 	}
 
-  public List<Task> findLatestTask() {
-    return taskRepository.findAllByOrderByDeadLine().stream().filter((t -> !(t.getStatus()))).limit(3).collect(Collectors.toList());
+  public List<Task> findLatestTask(Integer userid) {
+    return taskRepository.findByUseridOrderByDeadLine(userid).stream().filter((t -> !(t.getStatus()))).limit(3).collect(Collectors.toList());
   }
 
-  public List<Task> findAll() {
-    return taskRepository.findAllByOrderByDeadLine();
+  public List<Task> findAll(Integer userid) {
+    return taskRepository.findByUseridOrderByDeadLine(userid);
   }
 
-  public List<Task> findByName(String name) {
-		return taskRepository.findByNameContaining(name);
+  public List<Task> findByName(String name, Integer userid) {
+		return taskRepository.findByNameContainingAndUserid(name, userid);
 	}
 
   public Task findOne(Integer taskId) {
