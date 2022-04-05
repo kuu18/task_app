@@ -1,4 +1,4 @@
-package com.example.task_app.controller;
+package com.example.task_app.Controller;
 
 import com.example.task_app.repository.User;
 import com.example.task_app.service.TaskService;
@@ -26,10 +26,10 @@ public class HomeController {
     if (currentUser != null){
       mav.addObject("list", taskService.findAll(currentUser.getUserid()));
       mav.addObject("latestTaskList", taskService.findLatestTask(currentUser.getUserid()));
-      mav.setViewName("/taskmanagement");
+      mav.setViewName("taskmanagement");
     }
     else {
-      mav.setViewName("/home");
+      mav.setViewName("home");
     }
     return mav;
   }
