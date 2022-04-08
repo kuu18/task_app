@@ -1,4 +1,4 @@
-package com.example.task_app.controller;
+package com.example.task_app.Controller;
 
 import com.example.task_app.form.UserForm;
 import com.example.task_app.repository.User;
@@ -27,7 +27,7 @@ public class LoginController {
 
   @RequestMapping(value = "/signupform")
   public ModelAndView taskForm(ModelAndView mav, @ModelAttribute("form") UserForm form){
-    mav.setViewName("/signup");
+    mav.setViewName("signup");
     return mav;
   }
 
@@ -43,7 +43,7 @@ public class LoginController {
 		BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
 			// ビュー名の設定
-			mav.setViewName("/signup");
+			mav.setViewName("signup");
 		} else {
 			User user = new User();
       BeanUtils.copyProperties(form, user);
@@ -65,7 +65,7 @@ public class LoginController {
 
   @RequestMapping(value = "/loginform", method = RequestMethod.GET)
   public ModelAndView loginForm(ModelAndView mav, @ModelAttribute("form") UserForm form){
-    mav.setViewName("/login");
+    mav.setViewName("login");
     return mav;
   }
 }

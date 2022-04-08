@@ -1,4 +1,4 @@
-package com.example.task_app.controller;
+package com.example.task_app.Controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +46,7 @@ public class TaskController {
     // セッション情報への登録
 		mav.addObject("list", list);
     // ビュー名の設定
-    mav.setViewName("/taskmanagement");
+    mav.setViewName("taskmanagement");
     return mav;
   }
 
@@ -60,7 +60,7 @@ public class TaskController {
   @RequestMapping(value = "/form")
   public ModelAndView taskForm(ModelAndView mav, @ModelAttribute("form") TaskForm form, @AuthenticationPrincipal User currentUser){
     mav.addObject("currentUser", currentUser);
-    mav.setViewName("/taskform");
+    mav.setViewName("taskform");
     return mav;
   }
 
@@ -75,7 +75,7 @@ public class TaskController {
   public ModelAndView taskRegister(ModelAndView mav, @ModelAttribute("form") @Validated(TaskForm.CreateGroup.class) TaskForm form, BindingResult bindingResult, @AuthenticationPrincipal User currentUser) {
     if (bindingResult.hasErrors()) {
 			// ビュー名の設定
-			mav.setViewName("/taskform");
+			mav.setViewName("taskform");
 		} else {
 			Task task = new Task();
 			BeanUtils.copyProperties(form, task);
