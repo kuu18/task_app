@@ -5,6 +5,10 @@
 <body>
   <div th:replace="common :: header(false,false)"></div>
   <div class="container-fluid">
+    <div th:if="${msg}" class="row justify-content-md-center">
+      <div th:text="${msg}" class="col col-lg-4  alert alert-danger">
+      </div>
+    </div>
     <div class="row justify-content-md-center">
       <div class="col col-lg-4">
         <h2>新規登録</h2>
