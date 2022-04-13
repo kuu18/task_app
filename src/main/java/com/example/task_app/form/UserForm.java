@@ -1,11 +1,13 @@
 package com.example.task_app.form;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class UserForm {
   @NotEmpty
   private String username;
   @NotEmpty
+  @Size(min=8, max=255)
   private String password;
 
   public String getUsername() {

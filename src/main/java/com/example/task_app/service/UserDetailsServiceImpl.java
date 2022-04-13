@@ -21,10 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
       // ユーザが存在しない場合
       if (loginUser == null) throw new UsernameNotFoundException("ユーザーが存在しません");
-      // アカウントの有効期限切れ、アカウントのロック、パスワードの有効期限切れ、ユーザの無効を判定
-      if (!loginUser.isAccountNonExpired() || !loginUser.isAccountNonLocked() ||
-              !loginUser.isCredentialsNonExpired() || !loginUser.isEnabled())
-          throw new UsernameNotFoundException("");
       return loginUser;
     }
 }

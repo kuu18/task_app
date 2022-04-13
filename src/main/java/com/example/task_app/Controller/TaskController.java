@@ -42,9 +42,13 @@ public class TaskController {
       List<Task> latestTaskList = taskService.findLatestTask(currentUser.getUserid());
       // セッション情報への登録
       mav.addObject("latestTaskList", latestTaskList);
+			// セッション情報への登録
+			mav.addObject("list", list);
     }
-    // セッション情報への登録
-		mav.addObject("list", list);
+		else{
+			// セッション情報への登録
+			mav.addObject("searchList", list);
+		}
     // ビュー名の設定
     mav.setViewName("taskmanagement");
     return mav;
