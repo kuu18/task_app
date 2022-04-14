@@ -58,16 +58,16 @@ public class LoginController {
 				mav.addObject("msg", "Welcom to TaskApp!!");
 				// ビュー名の設定
 				mav.setViewName("taskmanagement");
+				//ユーザー登録後ログイン処理
+				try {
+					request.login(form.getUsername(), form.getPassword());
+				} catch (ServletException e) {
+						e.printStackTrace();
+				}
 			}catch(DataIntegrityViolationException e){
 				mav.addObject("msg", "ユーザー名が既に存在しています。");
 				// ビュー名の設定
 				mav.setViewName("signup");
-			}
-			//ユーザー登録後ログイン処理
-			try {
-				request.login(form.getUsername(), form.getPassword());
-			} catch (ServletException e) {
-					e.printStackTrace();
 			}
 		}
     return mav;

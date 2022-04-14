@@ -78,6 +78,8 @@ public class TaskController {
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ModelAndView taskRegister(ModelAndView mav, @ModelAttribute("form") @Validated(TaskForm.CreateGroup.class) TaskForm form, BindingResult bindingResult, @AuthenticationPrincipal User currentUser) {
     if (bindingResult.hasErrors()) {
+			// 現在のユーザーの登録
+			mav.addObject("currentUser", currentUser);
 			// ビュー名の設定
 			mav.setViewName("taskform");
 		} else {

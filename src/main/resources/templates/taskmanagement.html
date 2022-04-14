@@ -4,9 +4,20 @@
 <script type="text/javascript" th:inline="javascript">
 	/*_$tag____*/
 	function actionFunc(val) {
-		url = /*[[ @{/} ]]*/
-		document.forms['form'].action = url + val;
-		document.forms['form'].submit();
+    url = /*[[ @{/} ]]*/
+    document.forms['form'].action = url + val;
+    if(val.startsWith('task/delete/')){
+      if(confirm('削除しますか？')){ 
+        document.forms['form'].submit();
+      }
+    }
+    else if(val.startsWith('task/statusupdate/')){
+      if(confirm('ステータスを更新しますか？')){ 
+        document.forms['form'].submit();
+      }
+    }else{
+      document.forms['form'].submit();
+    }
 	}
 	/*_$t*/
   $(function(){
@@ -47,8 +58,8 @@
                 <div class="card text-white bg-success mb-3" style="min-height: 20rem;">
                   <div class="card-header d-flex justify-content-between mb-2">
                     <h5 class="h5" th:text="*{name}"></h5>
-                    <form class="d-flex justify-content-end" th:action="@{'/task/statusupdate/' + *{taskId}}" method="post">
-                      <button type="submit" class="btn btn-link btn-sm"><i class="bi bi-calendar-check text-white"></i></button>
+                    <form class="d-flex justify-content-end" th:action="damy" method="post">
+                      <button type="button" class="btn btn-link btn-sm" th:onclick="|actionFunc('task/statusupdate/__*{taskId}__')|"><i class="bi bi-calendar-check text-white"></i></button>
                     </form>
                   </div>
                   <div class="card-body">
