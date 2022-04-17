@@ -2,6 +2,8 @@ package com.example.task_app.form;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,12 +12,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class TaskForm {
   @NotNull(groups = UpdateDeleteGroup.class)
   private Integer taskId;
-  @NotNull(groups = CreateGroup.class)
-  @Size(max = 50, groups = {CreateGroup.class, UpdateDeleteGroup.class})
+  @NotBlank(groups = CreateGroup.class)
+  @Size(max = 15, groups = CreateGroup.class)
   private String name;
+  @Size(max = 140, groups = CreateGroup.class)
   private String content;
   @NotNull(groups = CreateGroup.class)
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) 
+  @Future(groups = CreateGroup.class)
   private LocalDateTime deadLine;
   private Boolean status = false;
   private Integer userid;

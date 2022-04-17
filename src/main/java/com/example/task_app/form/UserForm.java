@@ -1,13 +1,14 @@
 package com.example.task_app.form;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 public class UserForm {
-  @NotEmpty
+  @NotBlank
   private String username;
-  @NotEmpty
-  @Size(min=8, max=255)
+  @NotBlank
+  @Length(min=8, max=255)
   private String password;
 
   public String getUsername() {
