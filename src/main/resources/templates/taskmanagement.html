@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: meta_header('タスク管理',~{::link},~{::script})">
+<script type="text/javascript" th:inline="javascript">
+	/*_$tag____*/
+	function actionFunc(val) {
+    url = /*[[ @{/} ]]*/
+    document.forms['form'].action = url + val;
+    if(val.startsWith('task/delete/')){
+      if(confirm('削除しますか？')){ 
+        document.forms['form'].submit();
+      }
+    }
+    else if(val.startsWith('task/statusupdate/')){
+      if(confirm('ステータスを更新しますか？')){ 
+        document.forms['form'].submit();
+      }
+    }else{
+      document.forms['form'].submit();
+    }
+	}
+	/*_$t*/
+  $(function(){
+  var len=40;
+  $('.content').filter(function(){return $(this).text().length>len;}).each(function(){
+    $(this).data("text",$(this).text());
+    $(this).text($(this).text().substr(0,len)+"..");
+  }).on('click',function(){
+    var dataText=$(this).data("text");
+    $(this).data("text",$(this).text());
+    $(this).text(dataText);
+  });
+  });
+</script>
+</head>
+<body >
+  <div th:replace="common :: header(true,true)"></div>
+  
+  <div class="container-fluid">
+    <div th:if="${msg}" class="row justify-content-md-center">
+      <div th:text="${msg}" class="col col-lg-4  alert alert-success">
+      </div>
+    </div>
+    <div class="row">
+      <main class="col">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" th:unless="${searchList}" >
+          <h1 class="h2">直近のタスク</h1>
+        </div>
+        <div class="d-flex justify-content-end">
+          <form th:action="@{/task/form}" method="post">
+              <button type="submit" class="btn btn-link btn-lg"><i class="bi bi-calendar-plus text-success"></i></button>
+          </form>
+        </div>
+        <div class="album py-5 bg-light" th:if="${latestTaskList}">
+          <div class="container">    
+            <div class="row">
+              <div class="col-xs-12 col-lg-4" th:each="task : ${latestTaskList}" th:object="${task}">
+                <div class="card text-white bg-success mb-3" style="min-height: 20rem;">
+                  <div class="card-header d-flex justify-content-between mb-2">
+                    <h5 class="h5" th:text="*{name}"></h5>
+                    <form class="d-flex justify-content-end" th:action="damy" method="post">
+                      <button type="button" class="btn btn-link btn-sm" th:onclick="|actionFunc('task/statusupdate/__*{taskId}__')|"><i class="bi bi-calendar-check text-white"></i></button>
+                    </form>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text" th:text="*{content}"></p>
+                  </div>
+                  <div class="card-footer d-flex justify-content-between flex-md-nowrap">
+                    <form th:action="damy" name="form" method="post">
+                      <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/form/__*{taskId}__')|" ><i class="bi bi-pencil-square text-white"></i></button>
+                        <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/delete/__*{taskId}__')|" ><i class="bi bi-trash text-white"></i></button>
+                      </div>
+                    </form>
+                    <small th:text="'期限：' + *{#temporals.format(deadLine, 'yyyy/MM/dd HH:mm')}" class="d-flex justify-content-end me-2 mt-3"></small>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  
+        <h2 th:text="${searchList} ? '検索結果' : 'タスク一覧'">タスク一覧</h2>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>タスク名</th>
+                <th>タスク内容</th>
+                <th>期限</th>
+                <th>ステータス</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:if="${list}" th:each="task : ${list}" th:object="${task}" style="white-space: nowrap;">
+                <td th:text="*{name}" class="content"></td>
+                <td th:text="*{content}" class="content"></td>
+                <td th:text="*{#temporals.format(deadLine, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="*{status} ? '完了' : '未完了'"></td>
+                <form th:action="damy" name="form" method="post">
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/statusupdate/__*{taskId}__')|">
+                        <i class="bi bi-calendar-check text-success" th:if="!*{status}"></i>
+                        <i class="bi bi-calendar-check-fill text-success" th:if="*{status}"></i>
+                      </button>
+                      <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/form/__*{taskId}__')|" ><i class="bi bi-pencil-square text-success"></i></button>
+                      <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/delete/__*{taskId}__')|" ><i class="bi bi-trash text-success"></i></button>
+                    </div>
+                  </td>
+                </form>
+              </tr>
+              <tr th:if="${searchList}" th:each="task : ${searchList}" th:object="${task}" style="white-space: nowrap;">
+                <td th:text="*{name}" class="content"></td>
+                <td th:text="*{content}" class="content"></td>
+                <td th:text="*{#temporals.format(deadLine, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="*{status} ? '完了' : '未完了'"></td>
+                <form th:action="damy" name="form" method="post">
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/statusupdate/__*{taskId}__')|">
+                        <i class="bi bi-calendar-check text-success" th:if="!*{status}"></i>
+                        <i class="bi bi-calendar-check-fill text-success" th:if="*{status}"></i>
+                      </button>
+                      <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/form/__*{taskId}__')|" ><i class="bi bi-pencil-square text-success"></i></button>
+                      <button type="button" class="btn btn-link" th:onclick="|actionFunc('task/delete/__*{taskId}__')|" ><i class="bi bi-trash text-success"></i></button>
+                    </div>
+                  </td>
+                </form>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

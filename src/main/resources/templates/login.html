@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: meta_header('ログイン',~{::link},~{::script})">
+</head>
+<body>
+  <div th:replace="common :: header(false,false)"></div>
+  <div class="container-fluid">
+    <div th:if="${param.error}" class="row justify-content-md-center">
+      <div class="col col-lg-4  alert alert-danger">
+        ユーザー名またはパスワードが正しくありません。
+      </div>
+    </div>
+    <div th:if="${param.logout}" class="row justify-content-md-center">
+      <div class="col col-lg-4  alert alert-success">
+        ログアウトしました。
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-4">
+        <h2>ログイン</h2>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-4">
+        <form th:action="@{/login}" th:object="${form}" method="post">
+        <div class="mb-3">
+          <label class="form-label">ユーザー名</label>
+          <input type="text" th:field="*{username}" class="form-control">
+          <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="errormessage" /></td>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">パスワード</label>
+          <input type="password" class="form-control" th:field="*{password}" rows="3">
+          <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errormessage" /></td>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-outline-primary">ログイン</button>
+        </div>
+        </form>
+    </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
